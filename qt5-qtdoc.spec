@@ -5,12 +5,12 @@
 
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
-Version: 5.6.1
-Release: 10%{?prerelease:.%{prerelease}}%{?dist}
+Version: 5.6.2
+Release: 1%{?dist}
 
 License: GFDL
 Url:     http://www.qt.io
-Source0: http://download.qt.io/snapshots/qt/5.6/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.6/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 BuildArch: noarch
 %global _qt5_qmake %{_bindir}/qmake-qt5
 
@@ -24,7 +24,7 @@ overviews, Qt topics, and examples not specific to any Qt module.
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}
+%setup -q -n %{qt_module}-opensource-src-%{version}
 
 
 %build
@@ -42,6 +42,10 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Wed Jan 11 2017 Jan Grulich <jgrulich@redhat.com> - 5.6.2-1
+- Update to 5.6.2
+  Resolves: bz#1384818
+
 * Tue Aug 30 2016 Jan Grulich <jgrulich@redhat.com> - 5.6.1-10
 - Increase build version to have newer version than in EPEL
   Resolves: bz#1317401
