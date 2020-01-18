@@ -1,7 +1,7 @@
 /****************************************************************************
 **
-** Copyright (C) 2015 The Qt Company Ltd.
-** Contact: http://www.qt.io/licensing/
+** Copyright (C) 2017 The Qt Company Ltd.
+** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the documentation of the Qt Toolkit.
 **
@@ -11,8 +11,8 @@
 ** accordance with the commercial license agreement provided with the
 ** Software or, alternatively, in accordance with the terms contained in
 ** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see http://www.qt.io/terms-conditions. For further
-** information use the contact form at http://www.qt.io/contact-us.
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
 **
 ** GNU Free Documentation License Usage
 ** Alternatively, this file may be used under the terms of the GNU Free
@@ -20,7 +20,7 @@
 ** Foundation and appearing in the file included in the packaging of
 ** this file. Please review the following information to ensure
 ** the GNU Free Documentation License version 1.3 requirements
-** will be met: http://www.gnu.org/copyleft/fdl.html.
+** will be met: https://www.gnu.org/licenses/fdl-1.3.html.
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
@@ -64,14 +64,17 @@
     See \l{Supported Platforms} for the list of \macos versions supported by Qt.
 
     Qt can be built for either x86 or x86_64. 64-bit is used by default.
-    To select a 32-bit build, use the \c macx-clang-32 or \c macx-g++32 mkspec.
+    To select a 32-bit build, use the \c QMAKE_APPLE_DEVICE_ARCHS \c qmake variable.
     This is selectable at configure time:
     \code
-    ./configure -platform macx-clang-32
+    ./configure -platform macx-clang QMAKE_APPLE_DEVICE_ARCHS=i386
     \endcode
 
-    The Qt build system does not support building unversal binaries directly.
-    Instead, use the \c lipo tool to glue two Qt builds together.
+    \c QMAKE_APPLE_DEVICE_ARCHS can also be specified as a space-delimited list
+    in order to build for multiple architectures simultaneously:
+    \code
+    ./configure -platform macx-clang QMAKE_APPLE_DEVICE_ARCHS="i386 x86_64 x86_64h"
+    \endcode
 
     \note Qt 5 does not support OS X on PowerPC.
     \note Static builds are not tested.
@@ -193,11 +196,11 @@
     You can download the Qt 5 sources from the \l{Downloads} page. For
     more information, visit the \l{Getting Started with Qt} page.
 
-    \section1 Step 1: Install the License File (Commercial Editions Only)
-        If you have the commercial edition of Qt, install your license
-        file as \c{$HOME/.qt-license}.
+    \section1 Step 1: Install the License File (Commercially Licensed Qt Only)
 
-        For the open source version you do not need a license file.
+        If you have a commercial Qt license, download the license file
+        from your \l {Qt Account} Web portal and save it as
+        \c{$HOME/.qt-license}.
 
         Unpack the archive if you have not done so already. For example,
         if you have the \c{qt-everywhere-opensource-src-%VERSION%.tar.gz}
@@ -289,8 +292,8 @@
      \l{http://developer.apple.com/library/mac/#documentation/UserExperience/Conceptual/AppleHIGuidelines/Intro/Intro.html#//apple_ref/doc/uid/20000957}
      {\macos Human Interface Guidelines}.
 
-    The \l{Macintosh Style Widget Gallery} page
-    contains sample images of widgets using the \macos platform theme.
+    The \l{Qt Widget Gallery} page contains sample images of applications using
+    the \macos platform theme.
 
     \section2 Qt Attributes for \macos
 
@@ -385,9 +388,9 @@
     \section2 Special Keys
 
     To provide the expected behavior for Qt applications on \macos,
-    the Qt::Meta, Qt::MetaModifier, and Qt::META enum values
+    the Qt::Key_Meta, Qt::MetaModifier, and Qt::META enum values
     correspond to the Control keys on the standard Apple keyboard,
-    and the Qt::Control, Qt::ControlModifier, and Qt::CTRL enum values
+    and the Qt::Key_Control, Qt::ControlModifier, and Qt::CTRL enum values
     correspond to the Command keys.
 
     \section2 Dock
@@ -1078,6 +1081,10 @@
 
     For more information about C++ runtime environment, see \l
     {https://developer.apple.com/library/mac/#documentation/DeveloperTools/Conceptual/CppRuntimeEnv/CPPRuntimeEnv.html}{Apple's Developer Website}
+
+    \section3 Expressing Supported \macos Versions
+
+    \include expressing-apple-os-versions.qdocinc expressing os versions
 
     \section1 The Mac Deployment Tool
     \target macdeploy

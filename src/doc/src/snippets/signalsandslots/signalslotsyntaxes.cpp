@@ -1,12 +1,22 @@
 /****************************************************************************
 **
-** Copyright (C) 2014 Sze Howe Koh <szehowe.koh@gmail.com>
-** Contact: http://www.qt.io/licensing/
+** Copyright (C) 2017 Sze Howe Koh <szehowe.koh@gmail.com>
+** Contact: https://www.qt.io/licensing/
 **
 ** This file is part of the documentation of the Qt Toolkit.
 **
 ** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
+**
+** BSD License Usage
+** Alternatively, you may use this file under the terms of the BSD license
+** as follows:
 **
 ** "Redistribution and use in source and binary forms, with or without
 ** modification, are permitted provided that the following conditions are
@@ -126,20 +136,28 @@ DemoWidget::DemoWidget(QWidget *parent) : QWidget(parent) {
 void DemoWidget::demoOverloadConnect()
 {
 //! [overload]
-    auto mapper = new QSignalMapper(this);
-    auto spinBox = new QSpinBox(this);
+    auto slider = new QSlider(this);
+    auto lcd = new QLCDNumber(this);
 
     // String-based syntax
-    connect(mapper, SIGNAL(mapped(int)),
-            spinBox, SLOT(setValue(int)));
+    connect(slider, SIGNAL(valueChanged(int)),
+            lcd, SLOT(display(int)));
 
     // Functor-based syntax, first alternative
-    connect(mapper, static_cast<void (QSignalMapper::*)(int)>(&QSignalMapper::mapped),
-            spinBox, &QSpinBox::setValue);
+    connect(slider, &QSlider::valueChanged,
+            lcd, static_cast<void (QLCDNumber::*)(int)>(&QLCDNumber::display));
 
     // Functor-based syntax, second alternative
-    void (QSignalMapper::*mySignal)(int) = &QSignalMapper::mapped;
-    connect(mapper, mySignal,
-            spinBox, &QSpinBox::setValue);
+    void (QLCDNumber::*mySlot)(int) = &QLCDNumber::display;
+    connect(slider, &QSlider::valueChanged,
+            lcd, mySlot);
+
+    // Functor-based syntax, third alternative
+    connect(slider, &QSlider::valueChanged,
+            lcd, QOverload<int>::of(&QLCDNumber::display));
+
+    // Functor-based syntax, fourth alternative (requires C++14)
+    connect(slider, &QSlider::valueChanged,
+            lcd, qOverload<int>(&QLCDNumber::display));
 //! [overload]
 }

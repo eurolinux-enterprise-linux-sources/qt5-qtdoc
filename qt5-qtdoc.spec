@@ -5,18 +5,18 @@
 
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
-Version: 5.6.2
+Version: 5.9.2
 Release: 1%{?dist}
 
 License: GFDL
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.6/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.9/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 BuildArch: noarch
 %global _qt5_qmake %{_bindir}/qmake-qt5
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: qt5-qhelpgenerator
-BuildRequires: qt5-qdoc
+BuildRequires: qt5-doctools
+BuildRequires: qt5-qtbase-doc
 
 %description
 QtDoc contains the main Qt Reference Documentation, which includes
@@ -42,6 +42,14 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Fri Oct 06 2017 Jan Grulich <jgrulich@redhat.com> - 5.9.2-1
+- Update to 5.9.2
+  Resolves: bz#1482779
+
+* Mon Aug 28 2017 Jan Grulich <jgrulich@redhat.com> - 5.9.1-1
+- Update to 5.9.1
+  Resolves: bz#1482779
+
 * Wed Jan 11 2017 Jan Grulich <jgrulich@redhat.com> - 5.6.2-1
 - Update to 5.6.2
   Resolves: bz#1384818
